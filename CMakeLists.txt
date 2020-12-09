@@ -1,4 +1,4 @@
-# extended precision integers library for C
+# Extended C library by renbou
 # Copyright (C) 2020, Artem Mikheev <c@renbou.ru>.
 # Licensed under the Apache License, Version 2.0.
 
@@ -6,20 +6,16 @@
 
 cmake_minimum_required(VERSION 3.12)
 
-project(integers VERSION 1.0.0 DESCRIPTION "Extended precision/size integers library by @renbou for the C language, until compilers add official support" LANGUAGES C)
+project(integers VERSION 0.1.0 DESCRIPTION "Extended precision/size integers library by @renbou for the C language, until compilers add official support" LANGUAGES C)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic -O4")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic -Ofast")
 
-set(INTEGERS_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
-set(INTEGERS_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
+set(CREN_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+set(CREN_TESTS_DIR ${PROJECT_SOURCE_DIR}/tests)
+set(CREN_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
 
-# This library is defined as an interface since there's pretty much no need for compiling it as a huge separate library,
-# but I can add that support if it will be needed by someone
-add_library(integers INTERFACE)
-add_library(ints ALIAS integers)
-target_sources(integers
-        INTERFACE
-            ${INTEGERS_SOURCE_DIR}/uint128.c)
-target_include_directories(integers INTERFACE ${INTEGERS_INCLUDE_DIR})
-
-add_subdirectory(tests)
+# The libraries along with their specific tests are defined in the specific CMakeLists in this directory
+# they are all originally defined as interface libraries, so that they can simply be used for building separate projects,
+# but it isn't hard to add a global library which includes all of the smaller libraries and compiles it into a proper library object
+# If that is needed you can request it and I will do it, but currently I don't need it
+add_subdirectory(cmake)

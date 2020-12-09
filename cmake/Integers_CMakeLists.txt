@@ -1,0 +1,13 @@
+# extended precision integers library for C
+# Copyright (C) 2020, Artem Mikheev <c@renbou.ru>.
+# Licensed under the Apache License, Version 2.0.
+
+add_library(integers INTERFACE)
+add_library(ints ALIAS integers)
+target_sources(integers
+        INTERFACE
+        ${CREN_SOURCE_DIR}/integers/uint128.c)
+target_include_directories(integers INTERFACE ${CREN_INCLUDE_DIR})
+
+add_executable(uint128_test ${CREN_TESTS_DIR}/integers/uint128_test.c)
+target_link_libraries(uint128_test integers bitfuncs)

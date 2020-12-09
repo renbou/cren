@@ -96,7 +96,23 @@ int main() {
 		exit(-1);
 	}
 
+	uint128_t test1_j = uint128_parse("0o0000000000000003740717004103225754457272103241747576");
+	if (!(uint128_get_higher(test1_j) == 69300304495434ull && uint128_get_lower(test1_j) == 18097129759120543614ull)) {
+		printf(
+			"!ERROR! Problem with uint128_parse or one of uint128_get_higher/uint128_get_lower:\n"
+			"\tLower bits were supposed to be 18097129759120543614, but are actually %llu\n"
+			"\tHigher bits were supposed to be 69300304495434, but are actually %llu",
+			uint128_get_lower(test1_j), uint128_get_higher(test1_j));
+		exit(-1);
+	}
+
 	puts("[\\1] Test block has been passed!");
+
+	puts("[2] Bitwise operation tests");
+
+	uint128_t test3_a = uint128_parse("12736123489127397865128647");
+	uint128_t test3_b = uint128_parse("2");
+	uint128_divrem_result divided = uint128_divrem(test3_a, test3_b);
 
 	return 0;
 }

@@ -1,0 +1,13 @@
+# Generic and platform independent bitwise functions library (so that you don't need to lookup every builtin for the specific compiler)
+# Copyright (C) 2020, Artem Mikheev <c@renbou.ru>.
+# Licensed under the Apache License, Version 2.0.
+
+add_library(bitfuncs INTERFACE)
+add_library(bitfns ALIAS bitfuncs)
+target_sources(bitfuncs
+        INTERFACE
+        ${CREN_SOURCE_DIR}/bitfuncs/bitfuncs.c)
+target_include_directories(bitfuncs INTERFACE ${CREN_INCLUDE_DIR})
+
+add_executable(bitfuncs_test ${CREN_TESTS_DIR}/bitfuncs/bitfuncs_test.c)
+target_link_libraries(bitfuncs_test bitfuncs)
